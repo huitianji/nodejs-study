@@ -1,0 +1,110 @@
+介绍
+高性能的http和反向代理服务器
+
+//##
+yum uninstall nginx
+yun remove nginx
+
+rpm -ivh nginx-release-entos-6-0.el6.ngx.noarch
+vum install nginx
+ps -ef | grep nginx   看看有没有启动
+service nginx start  启动
+
+1.配置所在的目录：/etc/nginx/
+2.PID 目录;/var/run/nginx.pid
+3.错误日志:/var/log/nginx/error.log
+4.访问日志：/var/log/nginx/access.log
+5.默认站点目录：/usr/share/nginx/html
+
+
+
+###
+cat  /var/run/nginx.pid
+
+ps -cf | grep nginx
+
+//##########################//
+代理服务器
+server.conf
+upstream node{
+    server 127.0.0.1:3000 weight = 10;  # 10/100机率       down ：已当掉 ； backup:备用级；
+    server 127.0.0.1:4000 weight = 90; # 90/100机率
+}
+server{
+    listen:80;
+    server_name : 123.57.143.189;
+    location /{
+        proxy_pass http://node;                               #反向代理   node的名字就是upstream node的名字
+    }
+    /*
+    * location =/{
+             proxy_pass http://index;                               #反向代理   node的名字就是upstream node的名字
+         }
+    *
+     location =/reg{
+            proxy_pass http://node-v;                               #反向代理   node的名字就是upstream node的名字
+        }
+        location ^~/static/{
+                    proxy_pass http://node-v;                               #反向代理   node的名字就是upstream node的名字
+                }
+        location ~\.(gif|png|jpg)${
+                proxy_pass http://node-v;                               #反向代理   node的名字就是upstream node的名字
+            }
+    *
+    /
+}
+#############
+nginx -t
+
+service nginx restart
+################3
+ip hash
+每个请求按访问ip的hash结果进行分配，每个访客固定访问一个后端服务器,解决session共享的问题
+ip_hash
+
+4.fair
+按后端的服务器响应时间来分析请求，响应时间短的先分配
+5.url_hash
+按访问的url的hash结果来进行分配 请求，每一个url对应一个后端服务器。
+
+#location 配置
+= 开头表示精确匹配
+^~开头表示以此字符串开头
+~表示正则匹配。区分大小写
+~*表示正则匹配。不区分大小写
+
+/ 通过匹配，可以匹配任何请求
+
+
+如果多个location配置匹配同一个URL
+先匹配 =，再匹配^,再匹配正则 ，最后匹配/
+当匹配成功之后，不再进行匹配
+
+/////
+1.查询nginx主进程号
+ps -ef | grep nginx
+从容停止   kill -QUIT 主进程号
+
+　　快速停止   kill -TERM 主进程号
+
+　　强制停止   kill -9 nginx
+
+　　若nginx.conf配置了pid文件路径，如果没有，则在logs目录下
+
+　　kill -信号类型 '/usr/local/nginx/logs/nginx.pid'
+2.更改配置重启nginx　
+nginx -s reload
+3. 判断配置文件是否正确
+nginx -t
+
+
+
+
+
+
+
+
+
+
+
+

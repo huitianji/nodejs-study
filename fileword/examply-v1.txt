@@ -1,0 +1,7 @@
+//##
+
+vmware
+
+
+//###
+yum uninstall nginx
