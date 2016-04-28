@@ -1,0 +1,12 @@
+body{
+    width: 500px;
+    height: 500px;
+    margin: 0px auto;
+    font-size: 25px;
+    color:green;
+    text-align: center;
+    border:1px solid dimgray;
+}
+div{
+    background-color: green;
+}

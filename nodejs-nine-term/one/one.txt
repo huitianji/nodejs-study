@@ -6,3 +6,114 @@ stackoverflow
 -----------------------
 npm  install nvm-win@latest
 版本切换
+
+
+协议 MIT
+
+git-scm
+------------【2】---------------
+1.fork 我的项目
+2.git clone ....
+3. cd ->文件夹
+4. git add -A
+5. git commit -m "";
+6.git push origin master
+7.发起 pullrequest
+8,由我来合并。。。所以的pullrequest
+---------------------------------------------【3】----------------------------------------------
+REPL
+“(Read-eval-print loop)”  读取-求值-输出   ---  循环
+
+.help
+.exit   退出
+.save  cmd.log  保持到cmd.log文件里
+.load cmd.log
+node
+> 1+1
+>2
+>_5
+>7
+...
+[1,2,3]
+>_.length
+>3
+>_.toString();
+
+...
+>.clear
+
+-------------------------------------------【4】-----------------------------------------
+
+创建模块   person.js
+导出模块   exports.add = function(){}
+加载模块   var math = require("./person");
+调用模块   var sum = math.add();
+
+
+npm 是node.js默认的模块管理器，用来安装和管理node模块
+网址为 http://npmjs.org
+可以以包的方式通过npm 安装。卸载。发布包
+
+npm  init
+初始化
+
+npm  install -global [package name]
+
+
+fs  文件模块
+
+readFileSync  方法用于同步读取文件并返回一个字符串
+var text = fs.readFileSync(fileName,"utf8");
+readFile方法用于异步读取文件。
+fs.readFile(fileName,"utf8",function(err,text){})
+
+--------------------------------------------【5】------------------------------------------------
+--------------------------------------------【6】----------------------------------------------------
+1xx  请求正在处理
+2XX  正常处理完成
+    --200    ok 请求成功
+3xx  重定向
+    301   永久重定向   Moved Permanently
+    302   临时重定向   Found
+4xx    客户端错误
+   400  语法错误  Bad Request
+   401  权限未认证  Unauthorized
+   403  禁止访问 Forbidden
+   404  资源未找到  Not Found
+
+500   服务器端错误
+//路径解析
+
+
+http://localhost:8080/?name=j&agg=a&mp=m
+
+3.http.js
+.....
+{ protocol: null,
+  slashes: null,
+  auth: null,
+  host: null,
+  port: null,
+  hostname: null,
+  hash: null,
+  search: '?name=j&agg=a&mp=m',
+  query: 'name=j&agg=a&mp=m',
+  pathname: '/',
+  path: '/?name=j&agg=a&mp=m',
+  href: '/?name=j&agg=a&mp=m' }
+.....
+ //true 表示 query 转成对象
+ var urlObj = url.parse(request.url,true);// query: { name: 'j', agg: 'a', mp: 'm' },
+.....
+
+........
+curl http://localhost:8080/clock
+
+
+
+
+
+
+
+
+
