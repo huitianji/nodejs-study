@@ -114,6 +114,6 @@ curl http://localhost:8080/clock
 
 
 
-
+node里面用的最多的是[闭包。原型。事件]
 
 
