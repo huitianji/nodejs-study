@@ -1,0 +1,87 @@
+commonjs规范
+
+////////////////////
+(function(exports,require,module,__filename,__dirname){
+    自定义代码
+    return  module.exports
+})
+
+-----------------------------------------------
+/*
+    1.核心模块 http  fs
+    2.通过路径加载   ./
+    3.其他的文件模块
+
+*/
+
+
+require
+main  主模块
+resolve  得到实际查找结果路径
+cache  模块缓存
+
+
+------------------------
+bin  二进制
+
+package.json  包描述文件
+bin 二进制
+
+lib 存放javascript文件
+
+doc 说明文档
+test  单元测试和其他测试
+
+
+verson 完全匹配
+
+   version  大于这个版本
+   =version  大于或等于这个版本
+<version
+<=version
+~version 非常接近这个版本
+^version 与当前版本兼容
+
+
+
+
+http://www.tuicool.com/articles/2aUB7j
+
+npm view gulp  查看包
+
+npm install gulp  安装包
+npm install -g  express-generator  全局安装包
+
+npm root -g 查看全局安装路径
+npm config set prefix "d:\global"  修改全局路径
+
+
+npm list 显示当前目录下所有的包
+npm list -g 显示全局下所有包
+
+npm  uninstall gulp 卸载本地宝
+npm  uninstall gulp -g  卸载全局下的包
+npm  updata gulp  更新本地的gulp
+npm  update -g gulp 更新全局下的gulp
+npm update 更新当前目录下所有的包
+
+npm update -g
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
