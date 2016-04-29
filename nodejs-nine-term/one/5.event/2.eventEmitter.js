@@ -1,5 +1,11 @@
 /**
- *
+ *listeners
+ * on
+ * emit
+ * addListener
+ * once
+ * removeListener
+ * removeAllListeners
  */
 var eventEmitter = require("events").EventEmitter;//node老版本加。。
 var util = require("util");//继承用的，
