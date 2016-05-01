@@ -1,0 +1,9 @@
+var  http = require("http");
+var fs = require("fs");
+var mime = require("mime");
+var url = require("url");//对url进行处理，把字符串转换成对象
+
+mime.lookup//类型
+url.parse(request.url,true)//
+var eventEmitter = require("events").EventEmitter;//node老版本加。。
+var StringDecoder = require("string_decoder").StringDecoder;

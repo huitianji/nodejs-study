@@ -66,7 +66,15 @@ npm  update -g gulp 更新全局下的gulp
 npm update 更新当前目录下所有的包
 
 npm update -g
+///////////////////////
 
+Buffer------
+
+buffer  静态方法
+	concat
+	inBuffer
+	byteLength
+	isEncoding
 
 
 
