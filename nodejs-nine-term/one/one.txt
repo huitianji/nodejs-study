@@ -107,6 +107,7 @@ http://localhost:8080/?name=j&agg=a&mp=m
 .....
 
 ........
+crul -v http://localhost:8080/clock
 curl http://localhost:8080/clock
 
 
