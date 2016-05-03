@@ -1,0 +1,35 @@
+Tcp  是一个可靠的面向连接的传输协议层
+
+
+net.Socket代表一个socket端口对象
+socket端口对象可用来 读取 客户端发送的流数据，读到数据时触发【data】事件
+socket.on('data',function(data){});
+////////////////////////////////////
+创建socket
+socket = dgram.createSocket(type,[callback]);
+callback = function (msg,rinfo)收到数据时的回调函数
+  msg->收到的数据
+  rinfo
+     address 发送着的ip
+     family 地址类型
+     port  发送者的socket 端口号
+     size  发送着发送的数据字节数
+
+
+     绑定地址和端口
+     socket.bind(port,[address],[callback]);
+---------------------------------------------
+发送数据
+socket.send(buf,offset,length,port,address.[callback]);
+buf   要发送 的数据
+offset 从换成去中 第几个 字节开始发送数据
+length 放数据的字节数
+port 接收数据的 端口号
+address 接收数据的 ip地址
+callback function(err,bytes){} 发送完毕时所调的回调函数
+---err 发送出错时触发的  错误对象
+---bytes  发送数据的字节数
+
+
+
+
