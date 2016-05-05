@@ -1,0 +1,158 @@
+[sync--同步]
+将文件作为 整体 读入缓存区     readFile   readFileSync
+将文件 部分 读入缓存区         read       readSync
+将数据 完整 写入文件           writeFile   writeFileSync
+将缓存区的 部分 内容写入文件       write   writeSync
+////////////////////////////////
+stream.Readable 可读流
+使用实现了。stream.Readable接口的对象来将对象数据读取为数据流，在
+您表明您准备好接收之前，Readable流并不会开始发射数据
+fs.ReadStream  读取文件
+http.IncomingMessage       客户端的请求或服务器端的响应
+net.Socket                 tcp链接中的socket对象
+process.stdin              标准输入流
+Gzip                       数据压缩
+
+////////
+可读流模式
+--如何切换到流动模式
+  - 添加一个data世界处理器来监听数据
+  - 调用resume() 方法来明确开启数据流
+  - 调用pipe() 方法将数据发送到一个writable可读流
+//////
+ReadStream 文件可读流
+fs.createReadStream(path,[options]);
+-options
+  - flags 对文件采取何种操作，默认为"r"
+  - encoding 指定 编码 ，默认为null
+  - autoClose 读取数据后是否关闭文件描述符
+  - start 用证书标示文件 开始 读取的字节数的索引位置
+  - end 用整数标示文件 结束 读取的字节数的索引位置（包括end位置）
+  - highWaterMark 最高水位线，听着从底层资源读取前内部缓冲
+    区最多能存放的字节数。缺省为 64kb
+///////////////////////////
+rs.pause();//暂停ssss
+rs.resume;//恢复
+
+/////////////////////////
+fs.createWriteStream(path,options)
+
+writable 可写流
+使用各种实现stream.Writable 接口的对象来将流数据写入到对象中
+
+fs.writeStream   写入文件
+http.ClientRequest    客户端请求对象
+http.ServerResponse    http中的响应对象
+net.Socket   Tcp中的socket对象
+process.stdout     标准输出
+process.stderr     错误输出
+Gunzip             解压
+////////////////////
+write方法
+writable.write(chunk,[encoding],[callback]);
+~参数
+ - chunk 要 写入 的数据 ，Buffer或字符串对象，必须指定
+ - encoding 写入 编码 ，chunk为字符串时有用，可选
+ - callback 写入成功后的 回调 .
+~返回值为布尔值，系统缓存区定满时为false.未满时为true
+/////////
+pipe流，尤其是pipe()方法的初衷，是将数据的 滞流量 限制到一个可接受的水平，
+以使得不同速度的来源和目标不会 淹没 可用内存。
+readStream.pipe(writeStream,[options]);
+//////////
+ 全部写进去之后触发一个drain事件
+
+
+
+ /////////////-------------http--------////////////////
+1>
+ http模块帮助我们实现http服务器和客户端
+ 命令行中执行
+ curl -v http://localhost:8080;
+ curl 是一个获取服务器资源的linux命令
+
+
+ server.listen(port,[host],[backlog],[callback]);
+
+
+          http 接收客户端数据
+      http 接收客户端请求的第一个参数
+ 为http.IncomingMessage对象，属性：
+ *method 客户端请求的方法
+ *url 请求时使用的url 参数字符串
+ *headers 请求头对象，包括客户端所以请求头信息，包括cookie
+ *httpVersion HTTP版本
+
+2>
+ 把原始URL转换成对象
+ var urlObj = url.parse("原始url")
+ urlObj 的属性
+  - href 被转换的 原URL字符串
+  - protocal 客户端请求时的协议
+  - slashes 在协议与路径中间是否使用//分隔符
+  - host URL 字符串中完整的 地址及端口号，可能为Ip也可能为主机名
+  -auth 认证部分
+  -hostname 主机名或IP
+  - port 端口号
+  - pathname 路径不包含查询字符串
+  - query 不包含起始字符？的 查询字符串， 或根据该查询字符串转成而成的对象（由parse方法的第二个参数决定，true 就会转成 对象）
+
+3>
+    查询字符串
+     querystring 用来对查询字符串进行转换
+    var queryObj = querystring.parse(str,[sep],[eq],[options]);//字符串转对象
+    var queryStr = querystring.stringify(obj,[sep],[eq]);//对象转字符串
+     - str 需要被转换的 查询字符串
+     - sep 查询字符串中的 分割 字符，默认为&
+     - eq  查询字符串中 分配 字符，默认参数值为=
+     - options 为对象参数，可以指定maxKeys属性指写转换后的属性个数，o为不限定
+
+4>
+     代理服务器响应对象
+        ---  response.writeHead(statusCode,[reasonPhrase],[headers]);
+      --statusCode  状态码
+      --reasonPhrase 状态码 描述 信息
+      -- headers 响应头对象
+     	- content-type 内容类型
+     	- location 重定向 到的URL地址
+     	- content-disposition 下载的文件名
+     	- content-length 响应内容的字节数
+     	- set-cookie 写入客户端cookie
+     	- content-encoding 响应内容的 编码 方式
+     	- Cache-Control 缓存
+5>
+     设置响应头
+     -setHeader方法可以单独设置响应头
+     	response.setHeader(name,value);
+     -如果多个响应头的话可以使用数组
+     	response.setHeader("Set-Cookie",['name=jht',"age=6"]);
+6>
+     其他响应设置
+     	- getHeader 获取响应头
+     	- removeHeader 移除响应头
+     	- headerSent 响应头是否已经发送
+     	- sendDate 是否发送 响应时间
+     	- statusCode 设置响应码
+7>
+
+创建http客户端
+request方法可以向其它网站请求数据
+-options
+	- host 域名 或目标主机ip
+	- hostname 域名 或目标主机IP，优先级比host高
+	- port 端口号
+	- method 请求方法
+	- path 请求的路径，默认为/
+	- headers 客户端请求头对象
+	- auth 认证信息 如 “username:password"
+- callback = function(response){}当 获取到目标网站所返回的 响应流 时 调用的回调函数
+	- response 是一个http.IncomingMessage对象，可以从中 读取 响应流数据
+
+写入请求并发送请求
+- write方法向目标服务器发送 数据 write方法可以多次调用
+	request.write(chunk,[encoding]);
+		- chunk 要发送的 数据 ，可以是Buffer 或 字符串
+		- encoding 编码，不指定时默认是utf8
+ - end方法用来 结束 本次请求
+	request.end(chunk,[encoding]);
+  ///////////////////////////////////////////
