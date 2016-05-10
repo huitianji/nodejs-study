@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>上传文件</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <form action="" method="post">
+        <div class="form-group">
+            <label for='fileUpload'>请选择上传的文件</label>
+            <input class="form-control" type="file" name="fileUpload" id="fileUpload" onchange="fileSelect()">
+        </div>
+        <div class="form-group">
+            <input type="button" onclick="uploadFile()" class="btn btn-default" value="上传">
+        </div>
+        <div >
+            <table class="table table-striped">
+                <tr>
+                    <td>文件名</td>
+                    <td>文件大小</td>
+                    <td>文件类型</td>
+                </tr>
+                <tr>
+                    <td id="fileName"></td>
+                    <td id="fileSize"></td>
+                    <td id="fileType"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="progress">
+            <div class="progress-bar" id="progressbar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                <!--<span class="sr-only">60% Complete</span>-->
+            </div>
+        </div>
+    </form>
+
+</div>
+<script>
+    function fileSelect(){
+        var file = document.querySelector("#fileUpload").files[0];
+        //console.log(file);
+        if(file){
+            var fileSize = 0;
+            document.querySelector("#fileName").innerHTML = file.name;
+            document.querySelector("#fileSize").innerHTML = file.size;
+            document.querySelector("#fileType").innerHTML = file.type;
+        }
+    }
+    //fileSelect();
+    var success = error = abort = function(){
+
+    }
+    function progress(event){
+        var percent = Math.round(event.loaded*100/event.total);//event.loaded-上传的量//上传的进度
+        document.querySelector("#progressbar")['aria-valuenow'] = percent;
+        document.querySelector("#progressbar").style.width = percent + "%";
+        //console.log(percent)
+    }
+    function uploadFile(){
+        var fd = new FormData();
+        var file = document.querySelector("#fileUpload").files[0];
+        fd.append("fileUpload",file);
+
+        var xhr = new XMLHttpRequest();
+        xhr.upload.addEventListener("progress",progress);//上传过程监听   ///----
+        xhr.addEventListener("load",success,false);//上传成功
+        xhr.addEventListener("error",error,false);//上传出错
+        xhr.addEventListener("abort",abort,false);//上传退出
+        xhr.open("POST","/post");//1.方式2.请求路径
+        xhr.send(fd);
+    }
+</script>
+</body>
+</html>

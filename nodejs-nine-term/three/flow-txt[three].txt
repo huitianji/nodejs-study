@@ -156,3 +156,6 @@ request方法可以向其它网站请求数据
  - end方法用来 结束 本次请求
 	request.end(chunk,[encoding]);
   ///////////////////////////////////////////
+
+  util.inspect(object,[showHidden],[depth],[colors])是一个将任意对象转换 为字符串的方法,通常用于调试和错误输出
+  request.abort() 会中止一个已经发出的请求
