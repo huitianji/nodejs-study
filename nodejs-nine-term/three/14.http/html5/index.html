@@ -15,6 +15,7 @@
         <div class="form-group">
             <input type="button" onclick="uploadFile()" class="btn btn-default" value="上传">
         </div>
+
         <div >
             <table class="table table-striped">
                 <tr>
@@ -29,6 +30,20 @@
                 </tr>
             </table>
         </div>
+        <div >
+            <table class="table table-striped">
+                <tr>
+                    <td>当前速度</td>
+                    <td>剩余时间估算</td>
+                    <td>当前进度</td>
+                </tr>
+                <tr>
+                    <td id="speed"></td>
+                    <td id="remaining"></td>
+                    <td id="stage"></td>
+                </tr>
+            </table>
+        </div>
         <div class="progress">
             <div class="progress-bar" id="progressbar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
                 <!--<span class="sr-only">60% Complete</span>-->
@@ -38,13 +53,22 @@
 
 </div>
 <script>
+    function change(size){
+        var fileSize = 0;
+        if(size > 1024*1024){
+            fileSize = Math.round(size/(1024*1024)) + "Mb";
+        }else{
+            fileSize = Math.round(size/(1024)) + "Kb";
+        }
+        return fileSize;
+    }
     function fileSelect(){
         var file = document.querySelector("#fileUpload").files[0];
         //console.log(file);
         if(file){
-            var fileSize = 0;
+
             document.querySelector("#fileName").innerHTML = file.name;
-            document.querySelector("#fileSize").innerHTML = file.size;
+            document.querySelector("#fileSize").innerHTML = change(file.size);
             document.querySelector("#fileType").innerHTML = file.type;
         }
     }
@@ -52,24 +76,45 @@
     var success = error = abort = function(){
 
     }
+    var last = 0;
     function progress(event){
+
         var percent = Math.round(event.loaded*100/event.total);//event.loaded-上传的量//上传的进度
         document.querySelector("#progressbar")['aria-valuenow'] = percent;
         document.querySelector("#progressbar").style.width = percent + "%";
         //console.log(percent)
+        var diff = event.loaded - last;
+        last = event.loaded;
+        document.querySelector("#speed").innerHTML = diff;
+        document.querySelector("#stage").innerHTML = change(event.loaded);
+        document.querySelector("#remaining").innerHTML = ((event.total-event.loaded)/diff).toFixed(0) + "秒";
     }
     function uploadFile(){
-        var fd = new FormData();
-        var file = document.querySelector("#fileUpload").files[0];
-        fd.append("fileUpload",file);
+        var shardSize = 2 * 1024 * 1024;
+        var shardCount = Math.ceil(file.size/shardSize);
 
-        var xhr = new XMLHttpRequest();
-        xhr.upload.addEventListener("progress",progress);//上传过程监听   ///----
-        xhr.addEventListener("load",success,false);//上传成功
-        xhr.addEventListener("error",error,false);//上传出错
-        xhr.addEventListener("abort",abort,false);//上传退出
-        xhr.open("POST","/post");//1.方式2.请求路径
-        xhr.send(fd);
+        var file = document.querySelector("#fileUpload").files[0];
+
+        for(var i = 0;i<shardCount;i++){
+
+            var start = i*shardSize;
+            var end = Math.min(fille.size,start + shardSize);
+            var fd = new FormData();
+            fd.append("data",file.slice(start,end));
+            fd.append("name","fileUpload");
+            fd.append("total",shardCount);
+            fd.append("index",i+1);
+            fd.append("size",shardSize);
+
+            var xhr = new XMLHttpRequest();
+            //xhr.upload.addEventListener("progress",progress);//上传过程监听   ///----
+            xhr.addEventListener("load",success,false);//上传成功
+            //xhr.addEventListener("error",error,false);//上传出错
+            //xhr.addEventListener("abort",abort,false);//上传退出
+            xhr.open("POST","/post");//1.方式2.请求路径
+            xhr.send(fd);
+        }
+
     }
 </script>
 </body>
