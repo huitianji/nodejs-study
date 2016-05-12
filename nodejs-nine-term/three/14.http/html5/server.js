@@ -30,7 +30,6 @@ var app = http.createServer(function(req,res){
                             var buff = fs.readdirSync(file);
                             fs.writeSync(fd,buff,0,buff.length,pos);
                             fs.unlinkSync(file);
-
                         }
                     });
                     fs.closeSync(fd);
