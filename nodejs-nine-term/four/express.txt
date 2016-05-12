@@ -1,0 +1,7 @@
+路由控制
+-get方法 ---- 根据请求路径来处理客户端发出的GET请求
+app.get(path,function(request,response));
+    -path
+    -fn
+    -app.all()函数可以匹配所有的HTTP方法，也就是说它可以过滤所有路径的请求
+
