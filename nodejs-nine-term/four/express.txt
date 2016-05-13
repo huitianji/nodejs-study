@@ -5,3 +5,118 @@ app.get(path,function(request,response));
     -fn
     -app.all()函数可以匹配所有的HTTP方法，也就是说它可以过滤所有路径的请求
 
+
+---【1】----
+如果调用回调函数的next参数表示将请求数据传递给下一个中间件
+app.use([path],function(request,response,next){});
+
+获取请求参数
+ - req.host 返回请求头里取的主机名（不包含端口号）
+ -req.path 返回请求的URL的路径名
+ -req.query 是一个可获取客户端get请求路径参数的对象属性，
+    包含着被解析过的请求参数对象。默认为{}
+ - req.params是一个路径参数对应的对象
+
+ ---【2】-----------------------
+ send
+ send()方法向浏览器发送一个响应信息，并可以智能处理不同类型的数据
+  并地输出响应时会自动进行一些设置。比如HEAD信息，
+  HTTP 缓存支持等等
+
+  --当参数为一个String时，Content-Type默认设置为“text/html"
+  res.send([body|status],[body]);
+  --当参数为Array或 Object时，Express会返回一个JSON
+  res.send({user:"jht"});
+
+   res.send(250);
+  不能使用数组作为参数，如果要返回入码要用  res.sendStatus方法
+
+----【3】----------
+模板
+
+1.指定渲染模板引擎
+  app.set('view engine','ejs');
+
+2.设置放模板文件的目录
+  app.set('views',path.join(__dirnanme,"/"));
+3. render函数，对网页模板进行渲染 在渲染模板时 locals 可为其模板传入
+ 量值，在模板中就可以调用所传变量了。
+ res.render(view,[locals],callback);
+
+ 4. 原理
+
+ var fs = require("fs");
+ app.engine(){//定义模板引擎
+    fs.readFile(filePath,function(err,content){
+        if(err) return callback(new Error(err));
+        var rendered = content.toString().replace().replace();
+        return callback();
+    });
+ }
+ app.set("views","./views");
+
+ ---【4】-----------
+ 静态文件服务中间件
+ express.static 是 Express 内置的唯一 一个中间件。
+ 是基于serve-static 开发的。负责托管 Express 应用内的静态资源
+
+ 每个应用可有多个静态目录
+ app.use(
+     express.static(require("path").join(__dirname,"public")),
+     {options}
+ );
+
+ app.use(
+ express.static(path.join(__dirname,"public")),
+ {
+    dotfiles:'deny',
+    index:"inx.html",
+    setHeaders:function(response){
+       // response.setHeader('myname','jth');
+    }
+ }
+
+ );//当前的目录
+
+
+ index:发送目录索引   index.html
+
+ ---【5】-----------
+            post方法
+
+根据请求路径来处理客户端发出的Post请求
+var bodyparser = rquire("body-parser");
+app.use(bodyparser.urlencoded({extended:true}));
+app.post(path,function(req,res));
+
+
+------------【NodeJs----路径】-----------------
+NodeJs：module.filename、__filename、__dirname、process.cwd()和require.main.filename 解惑
+
+onsole.log('*** app start ***');
+
+console.log('***      module.filename = ' + module.filename + ' ***');
+console.log('***           __filename = ' + __filename + ' ***');
+console.log('***            __dirname = ' + __dirname + ' ***');
+console.log('***        process.cwd() = ' + process.cwd() + ' ***');
+console.log('*** require.main.filename= ' + require.main.filename + ' ***');
+
+console.log('*** app end ***');
+
+结论：
+
+    module.filename：开发期间，该行代码所在的 文件。
+    __filename：始终等于 module.filename。
+    __dirname：开发期间，该行代码所在的目录。
+    process.cwd()：运行node的工作目录，可以使用  cd /d 修改工作目录。
+    require.main.filename：用node命令启动的module的filename, 如 node xxx，这里的filename就是这个xxx。
+
+require()方法的坐标路径是：module.filename；fs.readFile()的坐标路径是：process.cwd()。
+
+
+
+
+
+
+
+
