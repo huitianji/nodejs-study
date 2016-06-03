@@ -114,6 +114,10 @@ console.log('*** app end ***');
 require()方法的坐标路径是：module.filename；fs.readFile()的坐标路径是：process.cwd()。
 
 
+-------------------------------express中使用cookie---------------------------------------------------------------
+
+express在4.x版本之后，管理sesson/cookies等许多模块都不再直接包含在express中
+npm install cookie-parser
 
 
 

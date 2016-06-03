@@ -1,0 +1,28 @@
+'Set-Cookie':'name = value;Path =/;expires ='+time ;
+
+nodejs向客户端发送cookie：
+1>使用response.writeHead,
+var time = new Date(new Date().getTime() + 60*1000).toGMTString();
+response.writeHead(200,{
+    "Set-Cookie";'name=jh;path=/;Expires = ' + time
+});
+
+缺点：使用response.writeHead只能发送一次头部
+
+2>可以使用response.setHeader
+response.setHeader('Set-Cookie','name2=j;path=/;Expires='+timeObj+'');
+
+
+----------------------
+code  templates
+
+------------------------------------
+设置cookie
+res.cookie(name,value,[,options]);
+domain   域名，默认是当前域名
+path     域名，默认是/
+expires  过期时间，如果没有指定或为0表示当前会话有效
+maxAge   有效时间（单位是毫秒）
+httpOnly   不能通过浏览器javascript访问
+secure  只能通过https协议访问
+signed   是否对cookie进行加密
