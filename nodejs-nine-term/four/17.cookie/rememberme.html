@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function setCookie(key,value){
+            document.cookie = key + "= " +value;
+        }
+        function getCookie(key){
+            if(document.cookie){
+                var parts = document.cookie.split("; ");
+                for(var i= 0,len = parts;i<len;i++){
+                    var vals = parts.split("=");
+                    if(vals[key] = key){
+                        return vals[1];
+                    }else{
+
+                    }
+                }
+            }
+        }
+        function checkCookie(){
+            var username = getCokie('username');
+            if(username){
+                alert("welcome");
+            }else{
+                username = prompt('请输入用户名');
+                if(username){
+                    setCookie('username',username);
+                }
+            }
+        }
+    </script>
+</head>
+<body onload="checkCookie()">
+
+</body>
+</html>
