@@ -1,0 +1,5 @@
+npm install  express-session
+store  存储
+secret  秘钥
+
+this.startGc();//清楚垃圾
