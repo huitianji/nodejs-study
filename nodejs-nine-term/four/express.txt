@@ -1,3 +1,6 @@
+npm install express
+
+
 路由控制
 -get方法 ---- 根据请求路径来处理客户端发出的GET请求
 app.get(path,function(request,response));
