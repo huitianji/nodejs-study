@@ -1,0 +1,11 @@
+使用express生成器生成一个示例项目
+1>
+$npm install -g express-generator
+//查看安装到哪个目录
+npm config ls
+
+express -e 文件夹   // -e 为ejs模板
+
+//删除文件夹   rm -rf 文件夹名字
+
+2>
