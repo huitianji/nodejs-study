@@ -1,0 +1,26 @@
+MongoVUE
+
+   //4.0  4.5 [python -->2.7.11]
+    //  framework  --> 4.0   .net工具
+
+    // mvn   -> 工具
+1>
+npm install mongoose
+3>
+链接数据库
+var db = mongoose.connect("mongodb://user:pass@localhost:port/database");
+4>数据库的模型骨架
+var PersonSchema = new mongoose.Schema({
+    name:{type:String},
+    age:{type:Number,default:0},
+    time:{type:Date,default:Date.now},
+    email:{type:String,default:''}
+});
+
+5>ps -ef | grep mongodb
+
+
+
+
+
+

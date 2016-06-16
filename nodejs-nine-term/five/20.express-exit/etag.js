@@ -16,19 +16,15 @@ function getHash(str){
 * */
 function send(filename,req,res){
     //取得最后修改时间
-    var lastModified =new Date(req.headers['if-modified-since']);
-    fs.stat(filename,function(err,stat){//获取一个文件的描述信息
-        //console.log(stat);
-
-        if(stat.mtime.getTime() == lastModified.getTime()){//缓存里面的文件是最新的。
-            res.statusCode = 304;
-            res.end();
-        }else{
-            res.writeHead(200,{'Last-Modified':stat.mtime.toGMTString()});
-            fs.createReadStream(filename).pipe(res);
-        }
-
-    });
+    var ifNoneMath =new Date(req.headers['if-none-match']);
+    var data = fs.readFileSync(filename).toString();
+    if(ifNoneMath == getHash(data)){
+        res.statusCode = 304;
+        res.end();
+    }else{
+        res.writeHead(200,{'Etag':getHash(data)});
+        fs.createReadStream(filename).pipe(res);
+    }
 }
 http.createServer(function(req,res){
     if(req.url != '/favicon.ico'){

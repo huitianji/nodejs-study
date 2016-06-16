@@ -1,0 +1,114 @@
+命令窗体重输入。。数据存放位置
+mongod --dbpath=D:\Mongodb\data  按回车键
+
+
+
+链接客户端：
+命令窗口中输入  mongo --host=127.0.0.1 或者 mongo 按回车键
+
+
+链接远程地址
+mongo --host=123.57.143.189  按回车键
+
+use   database_name    database_name:代表数据库的名字
+show dbs
+
+db.person.insert({name:"zhangsan",age:30});
+
+
+查看当前使用的数据库
+ db/db.getName();
+
+删除数据库
+
+db.dropDatabase();
+
+
+//端开与数据库的链接
+
+exit
+
+
+帮助
+help
+
+
+//操作集合的方法
+api
+
+db.worker.help();
+
+查看当前数据库下有哪些集合
+show collections
+
+创建集合
+
+db.createCollection("collection_Name");//collection_Name集合的名称
+
+db.collection_name.insert(document)//  document要插入的文档
+
+删除当前数据库中的集合
+
+db.collection_Name.drop();
+
+db.worker.find();
+
+db.work.update({id:1},{$set:{name:3,age:4}});
+
+db.worker.update({name:3},{$set:{name:4}},{nulti:true});//全部都更新了
+
+$inc:{age:2}
+更新文档：
+
+updata();
+
+db.collection.update(
+    <query>,
+    <update>,
+    {
+        upsert:<boolean>,
+        multi:<boolean>,
+        writeConcern:<document>
+    }
+);
+
+//查询文档
+
+db.worker.find();
+
+查询指定列
+db.collection_name.find({queryWhere},{key:1,key:1});
+查询指定的列
+db.worker.find({},{age:1});
+db.worker.find({age:{$lte:30}});//查询age,小于等于30的数据
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
