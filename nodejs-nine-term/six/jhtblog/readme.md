@@ -44,6 +44,25 @@ req.body(处理post请求，获取post请求体)
 hellow,word!
 <%- include b %>
 
+--------------------------------------bower--------------------------------------------------------------------
+安装 bower
+npm install bower -g
+
+初始化bower
+bower init
+
+name  ->jhtblog
+description -> this is a  blog
+main file
+keywords -> blog
+authors
+
+
+----------------///-------------------
+创建配置文件    .bowerrc
+{"directory":"./public/lib"}
+这表示以后bower安装的模块都安装在  ./public/lib下面
+
 
 
 
