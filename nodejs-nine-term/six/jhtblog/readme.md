@@ -16,3 +16,8 @@ SET DEBUG = jhtblog: * & npm start
 /**
 *set PORT:4000
 */
+
+
+/*增加一点*/
+git remote add origin git@github.com:文件名/jhtblog.git
+/*end*/
