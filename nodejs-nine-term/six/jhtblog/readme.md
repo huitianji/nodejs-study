@@ -4,12 +4,12 @@ npm install express-generator -g
 ##生成项目
 express -e jhtblog
 
-#进入生成目录并安装依赖的模块
+##进入生成目录并安装依赖的模块
 cd ->jhtblog
 npm install
 安装依赖包
 
-#设置环境变量并启动服务
+##设置环境变量并启动服务
 SET DEBUG = jhtblog: * & npm start
 
 
@@ -45,10 +45,10 @@ hellow,word!
 <%- include b %>
 
 --------------------------------------bower--------------------------------------------------------------------
-安装 bower
+##安装 bower
 npm install bower -g
 
-初始化bower
+##初始化bower
 bower init
 
 name  ->jhtblog
@@ -59,9 +59,13 @@ authors
 
 
 ----------------///-------------------
-创建配置文件    .bowerrc
+##创建配置文件    .bowerrc
 {"directory":"./public/lib"}
 这表示以后bower安装的模块都安装在  ./public/lib下面
+
+----------------//安装模块/---------------------------
+## 安装bootstrap
+bower install bootstrap --save
 
 
 
