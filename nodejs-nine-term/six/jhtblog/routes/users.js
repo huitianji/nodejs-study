@@ -14,7 +14,12 @@ router.get('/reg', function(req, res, next) {
   res.render('user/reg',{title:"用户注册"});
 });
 router.post('/reg', function(req, res, next) {
-  res.redirect("/");
+  var user = req.body;
+  if(user.password != user.repassword){
+    return res.redirect("back");//回退到上一个页面
+  }
+  delete  user.repassword;
+  user.password = md5(user.password);
 });
 /*用户登录*/
 router.get('/login', function(req, res, next) {
