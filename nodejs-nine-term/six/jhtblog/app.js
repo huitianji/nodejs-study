@@ -32,7 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));//静态文件服务
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/article',articles);
+app.use('/articles',articles);
 
 
 // catch 404 and forward to error handler
