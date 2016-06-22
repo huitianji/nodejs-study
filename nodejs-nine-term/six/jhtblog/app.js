@@ -10,6 +10,8 @@ var users = require('./routes/users');//用户路由
 //add-
 var articles = require("./routes/articles");//文章路由
 
+require("./util");
+
 var app = express();
 
 // view engine setup

@@ -19,7 +19,9 @@ router.post('/reg', function(req, res, next) {
     return res.redirect("back");//回退到上一个页面
   }
   delete  user.repassword;
-  user.password = md5(user.password);
+  user.password = blogUtil.md5(user.password);
+
+
 });
 /*用户登录*/
 router.get('/login', function(req, res, next) {
