@@ -16,11 +16,21 @@ router.get('/reg', function(req, res, next) {
 router.post('/reg', function(req, res, next) {
   var user = req.body;
   if(user.password != user.repassword){
+    var errMsg = "密码和确认密码不一致";
+
     return res.redirect("back");//回退到上一个页面
   }
   delete  user.repassword;
   user.password = blogUtil.md5(user.password);
+  user.avatar = "https://secure.gravatar.com/avatar/"+blogUtil.md5(user.email)+"?s=48";
+  new Model('User')(user).save(function(err,doc){
+    if(err){
+      return res.redirect("back");//回退到上一个页面
+    }else{
+      req.redirect('/');
+    }
 
+  });
 
 });
 /*用户登录*/

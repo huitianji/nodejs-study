@@ -4,14 +4,17 @@ var favicon = require('serve-favicon');//处理收藏夹图标的
 var logger = require('morgan');//处理日志
 var cookieParser = require('cookie-parser');//处理 cookie req.cookie  req.cookies
 var bodyParser = require('body-parser');//解析请求体的
-
+///
+var session = require("express-session");
+var MongoStore = require("connect-mongo/es5")(session);
+///
 var routes = require('./routes/index');//根路由
 var users = require('./routes/users');//用户路由
 //add-
 var articles = require("./routes/articles");//文章路由
 
 require("./util");
-
+require("./db");//直接查找到index.js
 var app = express();
 
 // view engine setup
@@ -30,6 +33,13 @@ app.use(logger('dev'));//指定日志输出的格式
 app.use(bodyParser.json());//处理json 通过Content-Type 来判断是否由自己处理
 app.use(bodyParser.urlencoded({ extended: false }));//处理form-urlencoded
 app.use(cookieParser());//处理cookie 把请求头中的cookie转成对象，加入一个cookie函数的属性
+///
+var setttings = require("./settings");
+app.use(session({
+  resave:true,
+  store:new MongoStore(setttings)
+}));
+///
 app.use(express.static(path.join(__dirname, 'public')));//静态文件服务
 
 app.use('/', routes);

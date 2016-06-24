@@ -68,6 +68,22 @@ authors
 bower install bootstrap --save
 
 
+---------------数据库图形---------------
+MongoVUE
+----------------
+
+安装会话中间件
+
+npm install express-session connect-mongo --save
+{
+package.json  改版本-》删除安装包-》
+npm install
+}
+
+---------------------
+//一闪而过
+npm install connect-flash  --save
+
 
 
 
