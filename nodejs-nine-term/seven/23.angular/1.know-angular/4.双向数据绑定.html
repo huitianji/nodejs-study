@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="jhMod">
+<head>
+    <meta charset="UTF-8">
+    <title>MVVM</title>
+</head>
+<body ng-controller="parentCtrl">
+<!--
+    作用域链。一般从子找父对象
+    一般不会从父找子
+     {{name | uppercase}}  -> | 过滤器   转换成 大写
+     只改变显示的值
+-->
+    <!--{{$parent.age}}-->
+    <!--<input type="button" value="输出" ng-click="change()">-->
+    <div ng-controller="jhCtrl">
+        {{name | uppercase}}
+        {{$parent.age}}
+        <input type="text" ng-model="name">
+        <input type="button" value="改变" ng-click="change()">
+    </div>
+<script src="../angular.js"></script>
+<script>
+    //先找到ng-app后 会生成一个$rootScope
+    //$rootScope.name = ""
+    angular.module("jhMod",[])
+            .controller('jhCtrl',function($scope){
+                //console.log($scope);
+                $scope.age = 10;
+                $scope.change = function(){
+                    $scope.name = "jth";
+                }
+            })
+            .controller('parentCtrl',function($scope){
+                console.log($scope);
+                $scope.age = 6;
+            });
+</script>
+</body>
+</html>
