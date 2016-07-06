@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="jhMod">
+<head>
+    <meta charset="UTF-8">
+    <title>MVVM</title>
+</head>
+<body>
+<!--
+    ng-controller:控制器
+    <html lang="en" ng-app="jhMod">
+    ng-app  等于模块的名字
+-->
+<div red>
+    hellow
+</div>
+<div greeting>word</div>
+<script src="../angular.js"></script>
+<script>
+    //模块的名字 | 依赖的其他模块
+    //controller ->控制器
+    angular.module("jhMod",[])//两个参数定义一个新的模块 、一个参数是指获取一个模块
+            //定义一个指令   指令的名字   指令的定义
+            .directive("red",function(){
+                return {
+                    //scope 作用域  |  当前的元素本身
+                    link:function(scope,element){
+                        element.css("color","red");//jquery方法
+                        element.css('border','1px solid green');
+                        element.on('click',function(){
+                            alert(element.html());
+                        });
+                    }
+                }
+            })
+            .directive("greeting",function($http){//jqueyr ->ajax
+                return {
+                    //scope 作用域  |  当前的元素本身
+                    link:function(scope,element){
+                        $http({
+                            url:"greeting.json",
+                            method:"GET"
+                        }).success(function(data){
+                            console.log(data)
+                            element.html(data.word);
+                        });
+                    }
+                }
+            })
+</script>
+</body>
+</html>

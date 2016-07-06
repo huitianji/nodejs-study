@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="jhMod">
+<head>
+    <meta charset="UTF-8">
+    <title>MVVM</title>
+</head>
+<body>
+<!--
+    ng-controller:控制器
+    <html lang="en" ng-app="jhMod">
+    ng-app  等于模块的名字
+-->
+<div ng-controller="jhCtrl">
+    {{name}}
+    <!--{{age + 1}}-->
+</div>
+<script src="../angular.js"></script>
+<script>
+    //模块的名字 | 依赖的其他模块
+    //controller ->控制器
+    angular.module("jhMod",[])//两个参数定义一个新的模块 、一个参数是指获取一个模块
+            //1.控制器的名字  |  控制器的定义
+            .controller('jhCtrl',function($scope,$http){//
+                $http({
+                    url:"greeting.json",
+                    method:"GET"
+                }).success(function(data){
+                    console.log(data)
+                    $scope.name = data.word;
+                });
+//                console.log($scope);//{} 空对象
+//                $scope.name = "jht";
+//                $scope.age = 5;
+            });
+</script>
+</body>
+</html>
