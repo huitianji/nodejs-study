@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+ <html lang="en"  ng-app="jhpxMod">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-controller="jhpxCtrl" >
+
+<div ng-app="jhpxMod" ng-init="click=false">
+    <button ng-click="click = !click">隐藏/显示</button>
+    <div ng-hide="click">
+        <input type="text" ng-model="name">
+        <br>
+        <span ng-bind="name"></span>
+    </div>
+</div>
+
+<script src="../angular.js"></script>
+<script>
+    angular.module("jhpxMod",[])
+            .controller('jhpxCtrl',function($scope,$interval){
+                $scope.name = "赋值";//没有用
+//                $interval(function(){
+//                    console.log($scope.name)
+//                },2000);
+            });
+</script>
+</body>
+</html>

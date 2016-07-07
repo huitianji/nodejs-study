@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="jhMod">
+<head>
+    <meta charset="UTF-8">
+    <title>MVVM</title>
+</head>
+<body>
+
+<div ng-controller="WatchCtrl">
+    <input id="age" type="text" jh-model="age">
+    {{age}}
+</div>
+
+<script src="../angular.js"></script>
+<script>
+
+    angular.module("jhMod", [])
+            .controller('WatchCtrl', function ($scope) {
+                $scope.age = 100;
+                $interval(function(){
+                    $scope.age = $scope.age + 1;
+                });
+//                $scope.$watch('age', function (newVal, oldVal) {
+//
+//                });
+//                console.log($scope)
+            })
+            .directive('jhModel', function ($timeout) {//指令
+                return {
+                    link:function(scope,element,attrs){
+
+                        element.on('keypress',function(){
+                            //强制观察这去对比模型是否被修改
+                            scope.$apply(function(){
+                                scope.age = element.val();
+                            });
+//                            $timeout(function(){
+//                                scope.age = element.val();
+//                            },0);
+
+                        });
+                        //模型变化时执行回调，修改视图的值
+                        scope.$watch('age',function(newVal,oldVal){
+                            if(newVal != oldVal){
+                                element.val(scope.age);
+                            }
+                        });
+                        //
+
+                    }
+                }
+            })
+
+</script>
+</body>
+</html>

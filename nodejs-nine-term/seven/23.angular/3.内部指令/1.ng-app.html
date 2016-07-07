@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+ <html lang="en"  ng-app="jhpxMod">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-controller="jhpxCtrl">
+<div ng-init="name='jht'">
+    <!--{{name}}-->
+    <span ng-bind="name"></span>
+</div>
+<script src="../angular.js"></script>
+<script>
+    angular.module("jhpxMod",[])
+            .controller('jhpxCtrl',function($scope,$interval){
+                $scope.name = "赋值";//没有用
+                $interval(function(){
+                    console.log($scope.name)
+                },2000);
+            });
+</script>
+</body>
+</html>

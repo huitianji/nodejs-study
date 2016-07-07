@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="jhMod">
+<head>
+    <meta charset="UTF-8">
+    <title>MVVM</title>
+</head>
+<body >
+
+<div id="parent" ng-controller="ParentCtrl">
+    <p>Parent:{{parent}}</p>
+    <div ng-controller="ChildCtrl">
+        <p>Child:{{child}}</p>
+    </div>
+</div>
+
+<script src="../angular.js"></script>
+<script>
+    window.onload = function(){
+        //angular.element = $
+        document.getElementById("parent").addEventListener("click",function(){
+            console.log(angular.element(this).data("$scope"));
+        });
+    }
+
+
+    angular.module("jhMod", [])
+            .controller('ParentCtrl',function($scope){
+                $scope.parent = "parent";
+                $scope.show = function(){
+                    console.log($scope)
+                }
+            })
+            .controller('ChildCtrl',function($scope){
+                $scope.child = "child";
+                $scope.show = function(){
+                    console.log($scope)
+                }
+            });
+
+</script>
+</body>
+</html>

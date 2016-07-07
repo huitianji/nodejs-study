@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="jhMod1">
+<head>
+    <meta charset="UTF-8">
+    <title>MVVM</title>
+</head>
+<body>
+
+<div ng-controller="Ctrl1">
+    {{name}}
+</div>
+
+<div ng-controller="Ctrl2">
+    {{name}}
+</div>
+
+<script src="../angular.js"></script>
+<script>
+
+    angular.module("jhMod1", ['jhMod2'])//指定依赖的模块
+            .controller('Ctrl1',function($scope){
+                $scope.name = "ctrl1"
+            })
+
+    angular.module("jhMod2", [])
+            .controller('Ctrl2',function($scope){
+                $scope.name = "ctrl2"
+            });
+
+
+</script>
+</body>
+</html>

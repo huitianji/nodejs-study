@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="jhMod">
+<head>
+    <meta charset="UTF-8">
+    <title>MVVM</title>
+</head>
+<body >
+<!--
+    作用域链。一般从子找父对象
+    一般不会从父找子
+     {{name | uppercase}}  -> | 过滤器   转换成 大写
+     只改变显示的值
+-->
+<!--{{$parent.age}}-->
+<!--<input type="button" value="输出" ng-click="change()">-->
+
+<div ng-controller="jhCtrl1">
+    {{countService.count}}
+    <input type="button" value="加1" ng-click="add()">
+</div>
+<div ng-controller="jhCtrl2">
+    {{countService.count}}
+    <input type="button" value="加1" ng-click="add()">
+</div>
+<script src="../angular.js"></script>
+<script>
+    //先找到ng-app后 会生成一个$rootScope
+    //$rootScope.name = ""
+    angular.module("jhMod", [])
+            .controller('jhCtrl1', function ($scope,countService) {
+                $scope.countService = countService;
+                $scope.add = function () {
+                    countService.add();
+                }
+            })
+            .controller('jhCtrl2', function ($scope,countService) {
+                $scope.countService = countService;
+                $scope.add = function () {
+                    countService.add();
+                }
+            })
+            .factory('countService',function(){//定义一个服务
+                return {
+                    count:0,
+                    add:function(){
+                        this.count++;
+                    }
+                }
+            });
+</script>
+</body>
+</html>
