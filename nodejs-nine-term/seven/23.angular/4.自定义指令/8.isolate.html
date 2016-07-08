@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="jhpxMod">
+<head>
+    <meta charset="UTF-8">
+    <title>scope</title>
+</head>
+<body ng-controller="jhCtrl">
+
+<person name="{{j}}"></person>
+<person name="{{t}}"></person>
+
+
+<script src="../angular.js"></script>
+<script>
+    angular.module("jhpxMod", [])
+            .controller('jhCtrl',function($scope){
+                $scope.j = "jht";
+                $scope.t = "jht1";
+                $scope.greet = function(name,word){
+                    alert(name + " " + word);
+                }
+            })
+            .directive("person", function () {
+                return{
+                    replace:true,
+                    scope:{
+                        name:"@name"
+                    },//true->创建独立的scope  false:->继承父scope
+                    restrict:'E',
+                    template:'<div>姓名：{{name}}</div>'
+                }
+            })
+</script>
+</body>
+</html>

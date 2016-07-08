@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="jhpxMod">
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+    <link rel="stylesheet" href="../bootstrap.css">
+</head>
+<body>
+
+<alert>
+    这是指令内部的内容
+</alert>
+
+<script src="../angular.js"></script>
+<script>
+    angular.module("jhpxMod", [])
+            .directive("alert", function () {
+                return{
+                    transclude:true,
+                    replace:true,
+                    restrict:'E',
+                    templateUrl:'trans.html'
+                }
+            })
+</script>
+</body>
+</html>

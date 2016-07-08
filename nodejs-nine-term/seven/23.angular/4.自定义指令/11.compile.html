@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="jhMode">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-init="word=jhpx">
+<div times="3">
+    <p>hello  {{word}}</p>
+</div>
+
+<script src="../angular.js"></script>
+<script>
+    angular.module("jhMode",[])
+            .controller('',function(){
+
+            })
+            .directive("times",function(){
+                return{
+                    compile:function(element,attrs){//转换模板
+                        //console.log(element.html())
+                        //console.log(element[0].outerHTML);
+                        var tpl = element.children();
+                        for(var i = 0;i<attrs.times-1;i++){
+                            element.append(tpl.clone())
+                        }
+                        //link
+                        return function(scope,element,attrs){
+                            //scope.word = 'newjht'
+                        }
+                    }
+                }
+            });
+</script>
+</body>
+</html>

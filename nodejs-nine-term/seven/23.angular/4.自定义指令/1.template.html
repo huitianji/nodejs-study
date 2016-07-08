@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="jhpxMod">
+<head>
+    <meta charset="UTF-8">
+    <title>ng-include</title>
+</head>
+<body>
+
+<div jh-hoverable>我是span</div>
+<script src="../angular.js"></script>
+<script>
+    angular.module("jhpxMod", [])
+            .directive("jhHoverable", function () {
+                return{
+                    link:function(scope,element,attrs){//1.作用域2.当前元素本身3.当前元素所有属性的集合
+                        element.on('mouseover',function(){
+                            element.css({outline:'1px solid red'});
+                        })
+                                .on('mouseout',function(){
+                                    element.css({outline:'none'});
+                                });
+
+                    }
+                }
+            })
+</script>
+</body>
+</html>

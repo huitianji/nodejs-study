@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="jhpxMod">
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+</head>
+<body>
+
+<hello></hello>
+<div hello></div>
+<div class="hello"></div>
+
+<!-- directive:hello -->
+
+<script src="../angular.js"></script>
+<script>
+    angular.module("jhpxMod", [])
+            .directive("hello", function () {
+                return{
+                    replace:true,
+                    restrict:'ECMA',
+                    template:'<h1>hello</h1>'
+                }
+            })
+</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="jhpxMod">
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+</head>
+<body ng-controller="jhCtrl">
+
+    时间格式：<input type="text" ng-model="format">
+    当前时间：<span jh-current-time="format"></span>
+
+<script src="../angular.js"></script>
+<script>
+    angular.module("jhpxMod", [])
+            .controller('jhCtrl',function($scope,dateFilter){
+                $scope.format = "M/d/yy h:mm:ss a";
+            })
+            .directive("jhCurrentTime", function ($interval) {
+                return{
+                    link:function(scope,element,attrs){
+                        function updateTime(){
+                            element.text(new Date(),scope.format);
+                        }
+                        $interval(function(){
+                            updateTime();
+                        },1000);
+                    }
+                }
+            })
+</script>
+</body>
+</html>

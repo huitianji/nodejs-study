@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="jhpxMod">
+<head>
+    <meta charset="UTF-8">
+    <title>scope</title>
+</head>
+<body>
+
+<hello></hello>
+<hello></hello>
+<hello></hello>
+
+
+
+<script src="../angular.js"></script>
+<script>
+    angular.module("jhpxMod", [])
+            .directive("hello", function () {
+                return{
+                    replace:true,
+                    restrict:'E',
+                    template:'<input ng-model="name">'
+                }
+            })
+</script>
+</body>
+</html>

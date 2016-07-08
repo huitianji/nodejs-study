@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="jhpxMod">
+<head>
+    <meta charset="UTF-8">
+    <title>directive交互</title>
+    <link rel="stylesheet" href="../bootstrap.css">
+    <style>
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="jumbotron text-center">
+        <girl beautiful gender></girl>
+        {{desc}}
+    </div>
+</div>
+
+<script src="../angular.js"></script>
+<script>
+    angular.module("jhpxMod", [])
+            .directive("girl", function () {
+                return{
+                    restrict:"E",
+//                    scope:true,//独立的
+                    controller:function($scope,$element,$attrs){//希望别人用。。
+                        $scope.desc = [];
+                        this.add = function(char){
+                            $scope.desc.push(char);
+                        }
+                    },
+                    template:'<h1>angular1</h1>'
+                }
+            })
+            .directive("beautiful", function () {
+                return{
+                    restrict:"A",
+                    require:'girl',
+                    link:function(scope,element,attrs,girlCtrl){//自己用写在link里面
+                        girlCtrl.add('beautiful');
+                    }
+                }
+            })
+            .directive("gender", function () {
+                return{
+                    restrict:"A",
+                    require:'girl',
+                    link:function(scope,element,attrs,girlCtrl){
+                        girlCtrl.add('gender');
+                    }
+                }
+            })
+</script>
+</body>
+</html>

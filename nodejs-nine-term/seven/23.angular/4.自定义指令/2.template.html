@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="jhpxMod">
+<head>
+    <meta charset="UTF-8">
+    <title>ng-include</title>
+</head>
+<body>
+
+<div jh-hello>我是span</div>
+<script src="../angular.js"></script>
+<script>
+    angular.module("jhpxMod", [])
+            .directive("jhHello", function () {
+                return{
+                    transclude:true,//我是span会存在
+                    replace:true,//把整个的div都替换掉
+                    template:"<h1>hellow<span ng-transclude></span></h1>"
+                }
+            })
+</script>
+</body>
+</html>
