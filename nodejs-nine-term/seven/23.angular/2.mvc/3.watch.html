@@ -17,7 +17,7 @@
     angular.module("jhMod", [])
             .controller('WatchCtrl', function ($scope) {
                 $scope.age = 100;
-                $interval(function(){
+                $interval(function(){//是个定时器
                     $scope.age = $scope.age + 1;
                 });
 //                $scope.$watch('age', function (newVal, oldVal) {

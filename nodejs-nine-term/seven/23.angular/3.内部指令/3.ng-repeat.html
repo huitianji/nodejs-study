@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+ <html lang="en"  ng-app="jhpxMod">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../bootstrap.css">
+</head>
+<body ng-controller="jhpxCtrl" >
+<!--
+    遍历
+-->
+<div class="container-fluid" ng-init="phones=[{name:'iphone'},{name:'jht'}]">
+    <div class="row-fluid">
+        Search:<input ng-model="query">
+        <ul class="phones">
+            <li ng-repeat="phone in phones | filter:query">
+                <!--{{phone.name}}-->
+                <!--
+                    运用 - 》ng-bind="phone.name"-》取消闪屏
+                -->
+                <div ng-bind="phone.name"></div>
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+
+
+<script src="../angular.js"></script>
+<script>
+    angular.module("jhpxMod",[])
+            .controller('jhpxCtrl',function($scope,$interval){
+                //$scope.name = "赋值";//没有用
+//                $interval(function(){
+//                    console.log($scope.name)
+//                },2000);
+            });
+</script>
+</body>
+</html>

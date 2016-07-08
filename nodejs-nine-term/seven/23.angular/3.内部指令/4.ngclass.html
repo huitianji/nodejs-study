@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+ <html lang="en"  ng-app="jhpxMod">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../bootstrap.css">
+</head>
+<body ng-controller="jhpxCtrl" >
+<!--
+    遍历
+-->
+<div class="container-fluid" >
+    <!--<div class="form-group" ng-class="{'has-error':false,'has-success':true}" >-->
+        <!--<input class="form-control" type="text" ng-model="username">-->
+    <!--</div>-->
+    <!--
+        has-error/success 都是class类
+    -->
+    <div class="form-group" ng-class="{
+        'has-error':username.length<=6,
+        'has-success':username.length>6
+    }" >
+        <input class="form-control" type="text" ng-model="username">
+    </div>
+</div>
+
+
+
+<script src="../angular.js"></script>
+<script>
+    angular.module("jhpxMod",[])
+            .controller('jhpxCtrl',function($scope,$interval){
+                //$scope.name = "赋值";//没有用
+//                $interval(function(){
+//                    console.log($scope.name)
+//                },2000);
+            });
+</script>
+</body>
+</html>
