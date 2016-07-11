@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="jhpxMod">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .title{
+            width:100px;
+            height: 30px;;
+            border:1px solid red;
+        }
+        .content{
+            width:100px;
+            height: 200px;;
+            border:1px solid green;
+        }
+    </style>
+</head>
+<body>
+<openers>
+    <opener title="one"><div>第一</div></opener>
+    <opener title="one2"><div>第一2</div></opener>
+    <opener title="one3"><div>第一3</div></opener>
+</openers>
+
+
+
+<script src="../angular.js"></script>
+<script>
+    /*require 前面可以加前缀
+    * 不给， 找同级元素上的指令
+    * ^ 找同级或者上级上面是否这个依赖的指令
+    * */
+    angular.module("jhpxMod", [])
+            .directive("opener", function () {
+                return {
+                    restrict:"E",
+                    //scope:true,//独立
+                    scope:{
+                        title:'@title'
+                    },
+                    transclude:true,
+                    templateUrl:"exp.html",
+                    require:"^openers",
+                    link:function(scope,element,attrs,openersCtrl){
+                        //scope.title = attrs.title;
+                        scope.toggle = function(){
+                            openersCtrl.open(scope);
+                        }
+                        openersCtrl.add(scope);
+                    }
+
+                }
+            })
+            .directive("openers", function () {
+                return {
+                    restrict:"E",
+                    controller:function($scope){
+                        var openersScopes = [];
+                        this.add = function(openerScope){
+                            openersScopes.push(openerScope);
+                        }
+                        this.open = function(scope){
+                            openersScopes.forEach(function(current){
+                                if(scope == current){
+                                    current.open = !current.open;
+                                }else{
+                                    current.open = false;
+                                }
+                            });
+                        }
+                    }
+                }
+            });
+</script>
+</body>
+</html>

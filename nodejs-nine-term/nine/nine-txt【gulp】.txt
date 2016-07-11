@@ -1,0 +1,80 @@
+如果在mac 或者 linux下遇到了权限问题，在下面这个命令的前面加上 sudo npm install gulp -g    并输入mac密码
+=+--------------------+=
+{
+    -v
+    --gulpfile
+    --cwd
+    -T
+}
+=+--------------------+=
+mkdir  文件夹
+cd    文件夹
+npm init
+
+npm install gulp --save-dev
+
++-------------------------------------------+
+1>例如gulpfile.js文件改名字了 gulpfile1.js
+
+gulp   --gulpfile gulpfile1.js
+gulp hello  --gulpfile gulpfile1.js
+
+2>cwd  切换工作目录
+如果在history文件夹下 访问history里面的gulpfile.js
+gulp hello --cwd history
+
+3> -T  依赖树
+
+gulp hello -T
+
+4>--tasks-simple
+gulp -T deault --tasks-simple
+
+=>hello
+=>default
+5> --silent  只执行不说话
+
++----------------------------重要---------------------------+
+通过 gulp.src()方法获取到想要处理的文件流
+gulp.dest()方法 则把流中的内容写入到文件中。
+//copy任务
+gulp.src('script/src.js')//获取文件流的api
+    .pipe(gulp.dest('dist/dest.js'));//写文件的api--dist/dest.js---这是目录名字
+
+要想改变文件名 可以使用插件 gulp-rename
+
+--当我们没有在gulp.src()方法中配置base属性时，base的默认值为通配符开始出现之前那部分
+路径例如：
+gulp.src('app/src/**/*.css');//此时base的值为app/src
+
+
++-----------------------------------------------------------------+
+Virtual file format==虚拟文件格式
+
+vinyl
+
+=============glob语法==================
+
+*   匹配文件路径的0个或多个字符，但不匹配路径分隔符（/）  匹配一级路径
+**  匹配路径中的0个或多个目录及其子目录，需要单独出现，即它左右不能有其他东西了。如果在末尾，也能匹配文件  匹配多级路径
+
+？  匹配一个字符（不匹配路径分隔符）
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

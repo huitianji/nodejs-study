@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="jhpxMod">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link type="text/css" rel="stylesheet" href="../bootstrap.css">
+</head>
+<body ng-controller="formCtrl">
+<div class="container">
+    <!--
+        novalidate:禁用h5自带的验证规则
+    -->
+    <form name="userForm" action="" novalidate="novalidate">
+        <div class="form-group">
+            <label for="email">邮箱</label>
+            <input id="email" type="email" class="form-control" name="email" ng-model="email">
+        </div>
+        <div class="form-group">
+            <input type="button" class="btn btn-default" value="提交">
+        </div>
+    </form>
+</div>
+<pre>
+    {{userForm | json}}
+</pre>
+
+<script src="../angular.js"></script>
+<script>
+    angular.module("jhpxMod", [])
+            .controller('formCtrl',function(){
+
+            })
+
+</script>
+</body>
+</html>
