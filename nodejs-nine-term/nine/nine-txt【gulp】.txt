@@ -86,11 +86,120 @@ gulp.watch('js/**/*.js',function(event){
 });
 
 
+==========================+gulp--插件+============================
+
+编译 Sass:gulp-sass
+编译 Less:gulp-less
+合并文件 :gulp-concat
+压缩js文件:gulp-uglify
+重命名js文件： gulp-rename
+优化图像大小 : gulp-imagemin
+压缩css文件  ：gulp-minify-css
+创建本地服务器 : gulp-connect
+实时预览     ：  gulp-connect
+html文件压缩 ： gulp-minify-html
+
+npm install xx  --save-dev  安装插件
+
+gulp-load-plugins 这个插件能自动帮你加载 package.json 文件里的gulp插件
+
+"devDependencies":{
+    "gulp":'3.9.0'
+}
+
+然后我们可以在gulpfile.js中使用gulp-load-plugins来帮助我们加载插件：
+var  gulp = require("gulp");
+//加载gulp-load-plugins插件，并马上运行它
+var $ = require('gulp-load-plugins')();
+然后我们要使用 gulp-rename 和 gulp-ruby-sass这两个插件的时候
+就可以直接$.concat 和$.connect 来代替。。业绩是原始插件名去掉gulp-前缀
+
+npm init   -- 生成一个package.json
+
+【install】
+{
+    npm install gulp-load-plugins gulp-concat  --save-dev
+    npm install gulp-less --save-dev
+    npm install gulp-connect --save-dev
+    npm install gulp-uglify --save-dev
+    npm install gulp-rename --save-dev
+}
+
+【html文件压缩】
+var gulp = require('gulp');
+var minifyHtml = require('gulp-minify-html');
+
+gulp.task('minify-html',function(){
+    gulp.src('src/*.html')//要压缩的html文件
+    .pipe(minifyHtml())   //压缩
+    .pipe(gulp.dest('dist/html'))//输出到目的地
+});
+
+【重命名】
+npm install gulp-rename --save-dev
 
 
+var gulp = require('gulp');
+var concat = require("gulp-concat");
+var uglify = require("gulp-uglify");
+var rename = require("gulp-rename");
+gulp.task('uglify',function(){
+      return gulp.src(['app/*.js','!app/*.tmp.js'])//指定要处理的文件
+            .pipe(concat('main.js'))//把多个js文件合并成一个文件
+            .pipe(gulp.dest('dist/js'));//保存此文件
+            .pipe(uglify())//对合并后的main.js文件进行压缩
+
+            .pipe(rename('main.min.js'))//对文件进行重命名
+            .pipe(gulp.dest('dist/js'));//输出到目的地
+})
+【gulp-minify-css  css压缩】
+npm install gulp-minify-css --save-dev
+
+var gulp = require('gulp');
+var less = require('gulp-less');
+var minify = require('gulp-minify-css');
+var rename = require("gulp-rename");
+
+gulp.task('less',function(){
+    return gulp.src('app/less/main.less')//指定less文件
+            .pipe(less())//把less编译成css
+            .pipe(gulp.dest('dist/css'))//输出到目的地   压缩前的
+
+            .pipe(minify)//对css进行压缩
+            .pipe(rename('main.min.css'))//重命名
+            .pipe(gulp.dest('dist/css'))//输出到目的地
+});
+gulp.task('default',['less']);
 
 
+ .pipe(rename(function (path) {
+    //path.dirname += "/ciao";//目录
+    path.basename += "-goodbye";//文件名  ".min"
+    path.extname = ".md"//扩展名 ".css"
+  }))
 
+【gulp-imagemin 压缩图片】
+npm install gulp-imagemin --save-dev
+
+var gulp = require('gulp');
+var imagemin = require('gulp-imagemin');
+
+gulp.task('copy-images',function(){
+    return gulp.src('app/imgs/**/*.{jpg,png}')//指定要压缩的图片
+            .pipe(imagemin())//进行图片压缩
+            .pipe(gulp.dest('dist'))//输出目的地
+});
+
+【jshint  代码检查】
+npm install gulp-jshint --save-dev
+
+var gulp = require('gulp');
+var jshint = require('gulp-jshint');
+gulp.task('jsLint',function(){
+    gulp.src('src/*.js')
+    .pipe(jshint())//进行代码检查
+    .pipe(jshint.reporter());//输出检查结果
+});
 
 
 

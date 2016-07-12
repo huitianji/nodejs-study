@@ -1,67 +1,68 @@
 var gulp = require("gulp");
-var path = require("path");
-var fs = require("fs");
-
-
-gulp.task('default',function(){
-    /*
-    * 监听之前：
-    * s*/
-    gulp.src("app/**/*.js").pipe(
-        gulp.dest("dist")
-    );
-    //监听
-    gulp.watch('app/**/*.js',function(event){
-        //event.path  event.type
-
-        //console.log(event.path,event.type);
-        //event.path =》d:\jihuitian\nodejs-study\nodejs-nine-term\nine\28.gulp\gulpfile.js default
-        //console.log(event.path);//d:\jihuitian\nodejs-study\nodejs-nine-term\nine\28.gulp\app\cs.js
-        //console.log(path.resolve("app").length);//59
-        //console.log(event.path.slice(path.resolve("app").length));//cs.js
-        //
-        //console.log(
-        //    path.join(
-        //        'dist',event.path.slice(path.resolve("app").length)
-        //    )
-        //);
-        console.log(event.type);
-        //===>dist\cs.js
-        switch(event.type){
-            case "added":
-
-                fs.createReadStream(event.path).pipe(
-                    fs.createWriteStream(path.join('dist',
-                        event.path.slice(path.resolve("app").length)
-                    ))
-                );
-
-                //fs.readFile(event.path,function(err,data){
-                //    fs.writeFile(
-                //        path.join('dist',
-                //            event.path.slice(path.resolve('app').lenght)
-                //        ),
-                //        data
-                //    );
-                //});
-                break;
-            case "changed":
-                fs.createReadStream(event.path).pipe(
-                    fs.createWriteStream(
-                        path.join(
-                            'dist',event.path.slice(path.resolve("app").length)
-                        )
-                    )
-                );
-                break;
-            case "deleted":
-                fs.unlink(path.join('dist',
-                    event.path.slice(path.resolve('app').length)
-                ));
-                break;
-            default:
-
-                break;
-        }
-    })
+var concat = require("gulp-concat");
+var connect = require('gulp-connect');
+//var $ = require("gulp-load-plugins")();
+var uglify = require("gulp-uglify");
+//
+gulp.task('uglify',function(){
+    return gulp.src(['app/*.js','!app/*.tmp.js'])//指定要处理的文件
+        .pipe(concat('main.js'))//把多个js文件合并成一个文件
+        .pipe(uglify())//对合并后的main.js文件进行压缩
+        .pipe(gulp.dest('dist/js'));//输出到目的地
 });
+
+
+gulp.task('default',['uglify']);//运行次任务的时候会在8080上启动服务器
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//var $ = load();
+//
+//function load(){
+//    var devDependencies = JSON.parse(fs.readFileSync('package.json')).devDependencies;
+//    var $ = {};
+//    for(var attr in devDependencies){
+//        if(attr.indexOf('gulp-') == 0){
+//            $[attr.slice(5)] = require(attr);
+//        }
+//
+//    }
+//    return $;
+//}
+{
+    //gulp.task('copy-html',function(){
+    //    gulp.src('app/index.html')//指定源文件
+    //        .pipe(gulp.dest('dist'))//拷贝到dist目录
+    //        .pipe(connect.reload());//通知浏览器重启
+    //});
+    //
+    //gulp.task('watch',function(){
+    //    gulp.watch('app/index.html',['copy-html']);//当index.html文件变化时执行coyp-html任务
+    //});
+    //
+    //gulp.task("server",function(){
+    //    connect.server({
+    //        root:'dist',//服务器的根目录
+    //        port:8080,//服务器的地址，没有此配置项默认也是8080
+    //        livereload:true//启用实时刷新功能
+    //    });
+    //});
+}
