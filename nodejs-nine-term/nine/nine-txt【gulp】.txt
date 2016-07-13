@@ -230,14 +230,28 @@ gulp-webapp
 
 
 
+------------------【babel安装】---------------------
+npm install babel-cli -g
+npm install --save-dev babel-preset-es2015      //把es5-》es6
 
+.babelrc
+{
+    'presets':['es2015'],
+    'plugins':[]
+}
 
+touch .babelrc  //创建文件
+babel --hekp
+//命令
+babel 4.arrow.js -o 4.es5.arrow.js   //es6转换成es5 ***
 
-
-
-
-
-
+--【常用的命令】
+babel --help 更多命令
+babel -o 输出到一个文件 `babel mobile.js -o mobile.buidd.js`
+babel -w 提供watch 方法`babel -w mobile.js -o mobile.build.js`
+babel -s 生成sourcemap `babel -s -w mobile.js -o mobile.build.js`
+babel -d 指定要编译的目录 `babel -d es5/ es6/`
+-------------------------------------------------------
 
 
 
