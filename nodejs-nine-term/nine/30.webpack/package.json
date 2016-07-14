@@ -1,0 +1,14 @@
+{
+  "name": "30.webpack",
+  "version": "0.0.0",
+  "description": "全局安装\r     npm install webpack -g",
+  "main": "bundle.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "expose-loader": "^0.7.1"
+  }
+}

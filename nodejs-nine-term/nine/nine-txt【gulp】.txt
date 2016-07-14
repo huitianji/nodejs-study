@@ -117,7 +117,7 @@ var $ = require('gulp-load-plugins')();
 然后我们要使用 gulp-rename 和 gulp-ruby-sass这两个插件的时候
 就可以直接$.concat 和$.connect 来代替。。业绩是原始插件名去掉gulp-前缀
 
-npm init   -- 生成一个package.json
+【npm init   -- 生成一个package.json】
 
 【install】
 {
@@ -241,7 +241,7 @@ npm install --save-dev babel-preset-es2015      //把es5-》es6
 }
 
 touch .babelrc  //创建文件
-babel --hekp
+babel --help
 //命令
 babel 4.arrow.js -o 4.es5.arrow.js   //es6转换成es5 ***
 
@@ -253,15 +253,94 @@ babel -s 生成sourcemap `babel -s -w mobile.js -o mobile.build.js`
 babel -d 指定要编译的目录 `babel -d es5/ es6/`
 -------------------------------------------------------
 
+=========================【+--webpack--+】=【css/js当成模块】==================================
+
+全局安装
+***    npm install webpack -g
+
+webpack -w 提供watch方法 ，实时进行打包更新
+webpack -p 对打包后的文件进行压缩
+webpack -d 提供 sourcemap 方便调试
+webpack --config 以某个config 作为打包
+webpack --help 更多命令
+
+本地安装
+***    npm install webpack --save-dev
+    安装到 node_modules并安装到了依赖列表里
+
+编译 entry.js并打包到 bundle.js
+    webpack ./entry.js bundle.js
+
+【加载css文件】
+    安装loader:
+***    npm install css-loader style-loader
+    首页style.css也看成是一个模块
+    css-loader 来读取它
+    style-loader 把它插入到页面中
 
 
+    require("css!./style.css"); == css-loader!./style.css
 
+------【配置文件】--------------
 
+webpack 在执行的时候可以通过指定的配置文件
+默认情况下会执行当前目录中的  webpack.config.js
+配置文件是一个node.js模块，返回一个json格式的配置信息对象
+添加配置文件
 
+module.exports = {
+    entry:'./entry.js', //定义打包的入口文件，每一个键值对，就是一个入口文件
+    output:{    //配置打包结果
+        path:__dirname,     //定义了输出的文件夹
+        filename:'bundle.js"    //定义了打包结果文件的名称
+    },
+    module:{    //定义模块的加载逻辑
+        loaders:[   //定义了一系列的加载器
+            {test:/\.css$/,loader:'style!css'},//当需要加载的文件匹配'test'正则时。就会调用后面的`loadder`对文件进行加载
+            {test:/\.css$/,loader:'style!css'} //可以定义多个
+        ]
 
+    }
+    /*,
+    plugins:[
+        new webpack.BannerPlugin('This file is create by mutouren')
+    ]
+    */
+}
 
+有配置文件。就可以直接执行 webpack
+如果没有配置文件  执行： webpack ./entry.js bundle.js
 
+------【插件】-------
+插件的使用一般是在webpack的配置信息plugins选项中指定 我们可以
+    向生成的打包文件头部插入一些信息
 
+var webpack = require("webpack");
+plugins:[
+    new webpack.BannerPlugin('This file is create by mutouren')
+]
+-----【加载图片】----
+url-loader 会将样式中引用到的图片转为模块来处理
+***  npm install url-loader
+limit的参数意思是图片大小小于这个限制的时候，会自动启用base64编码图片
+
+------【别名】----
+别名的作用是把用户的一个请求重定向到另一个路径
+resolve:{
+    alias:{
+        jquery:'./js/jquery.js'
+    }
+}
+------【expose -****-】-----很常用
+    如果想在前台使用打包的jquery需要把jquery暴露出来
+***   npm install expose-loader --save-dev
+    把$作为别名为jquery的变量暴露到全局上下文中
+    require('expose?$!jquery');
+
+------【使用es6】----
+npm install babel-core --save-dev
+npm install babel-loader --save-dev
+npm install babel-preset-es2015
 
 
 
