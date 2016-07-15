@@ -1,0 +1,29 @@
+//1.不同的层级元素之间通过缩进进行分离，标签和内容之间要加空格
+//2.编译模板  jade  index.jade
+//** 【-P 美化  -w 监控变化】 P为大写   w 为小写
+//3.jade -pP -w index.jade
+//style.    后面有个点
+//| hello  “|”纯文本
+
+//- var lesson = "nodejs"
+//body
+//    h1 #{lesson.toUpperCase() + "like"}
+
+//当行注释  //
+//非缓冲注释【块注释】  //-  直接注释掉。。不显示到页面里面。给开发人看的
+
+
+//        - var lesson = "nodejs"   写死
+
+// jade -P -w 4.var.jade -O var.json
+doctype html
+html
+    head
+        title hello word
+        style.
+            body{color:red;}
+        script.
+            var name = 'jht';
+
+    body
+        h1 #{lesson.toUpperCase() + "like"}
