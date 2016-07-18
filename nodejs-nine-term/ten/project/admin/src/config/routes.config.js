@@ -1,5 +1,5 @@
-export default function routesConfig($stateprovider,$urlRouterprovider){
+export default function routesConfig($urlRouterprovider){
     $urlRouterprovider.otherwise('/');
 }
 
-routesConfig.$inject = ['$stateprovider','$urlRouterprovider'];
+routesConfig.$inject = ['$urlRouterprovider'];

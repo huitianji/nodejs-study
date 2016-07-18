@@ -5,7 +5,8 @@ module.exports = {
     entry:"./app.js",
     output:{
         path:path.resolve(__dirname,'dist'),
-        filename:"bundle.js"
+        filename:"bundle.js",
+        publicPath:'/dist/'//上线时的目录
     },
     resolve:{//别名
         root:["./src"],//从哪个文件读取
