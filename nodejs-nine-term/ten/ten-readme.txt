@@ -78,3 +78,12 @@ url-loader
 
 ------------------------------------
 https://github.com/gowravshekar/bootstrap-webpack
+
+-----------------【单元测试】-----------------------------------
+
+karma init
+>jasmine     //使用哪个测试框架
+>no
+>chrome
+>yes
+

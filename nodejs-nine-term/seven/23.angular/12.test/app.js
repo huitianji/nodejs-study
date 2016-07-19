@@ -1,0 +1,1 @@
+angular.module("jhMod",['ngMock']);//定义模块
