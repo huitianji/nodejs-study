@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../vendors/react/react.js"></script>
+    <script src="../vendors/react/react-dom.js"></script>
+    <!--browser.js的作用是讲JSX语法转为 Javascript 语法-->
+    <script src="../vendors/babel/browser.min.js"></script>
+</head>
+<body>
+<!--
+        JSX语法，跟Javascript不兼容。凡是使用JSX的地方，都要加上type="text/babel"
+-->
+<script type="text/babel">
+    var MyComponent = React.createClass({
+        render:function(){
+            return ('<h1 className = "header">这是第一个组件</h1>');
+        }
+
+    });
+
+</script>
+</body>
+</html>

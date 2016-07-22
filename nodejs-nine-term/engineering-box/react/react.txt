@@ -1,3 +1,10 @@
+{
+    cat react.txt
+    输入 touch .gitignore 在文件夹就生成了一个“.gitignore”文件
+    :q!
+}
+
+
 github.com/GuoYongfeng/react-demo
 
 -------------
@@ -7,7 +14,7 @@ facebook.github.io/react/
 reactjs.cn
 0.14.3
 ---------------
-【基本认识】
+【1.基本认识】
 react是一个用于构建用户界面的javascript库，而不是一个Mvc框架，但可以使用
 react做完mvc架构的view层轻易的在已有项目中使用
 【2.为什么用react】
@@ -16,3 +23,252 @@ react做完mvc架构的view层轻易的在已有项目中使用
 同样的。用户的一个改变页面的操作也会刷新整个页面来完成，直到有了ajax出现，实现页面局部刷新
 ，带来的高效让web开发者们惊叹不已，但随之而来的问题是，复杂的用户交互及展现需要通过大量的
 dom操作来完成，这让页面的性能以及开发的效率又出现了新的瓶颈
+
+时至今日，谈到前端性能优化，减少DOM元素、减少reflow和repaint、编码过程中尽量减少DOM的查询等收到是大家耳熟能祥的。而页面任何
+UI的变化都是通过整体刷新来完成的。幸运的是，React通过自己实现的DOM Diff算法，计算出虚拟页面当前版本和新版本之间的差异，最小化重
+绘，避免不必要的DOM操作，解决了这两个公认的前端性能瓶颈。实现高效DOM渲染。
+
+    。我们知道，频繁的操作DOM所以带来的性能小伙是很大的。而React之所以快。是因为
+    它不直接操作DOM,二是引进虚拟DOM的实现来解决这个问题
+    。对于页面的更新。React通过自己实现的DOM Diff算法来进行差异对比，差异更新。
+    反应到页面上就是只重绘了更新的部分。从而提高高渲染效率。
+
+
+对于React的性能方面。多啰嗦几句：
+1.React从来没有说过“React 比原生操作DOM 块”。React 的基本思维模式是每次有变动就整个重新渲染整个应用。如果没有
+ Virtual DOM ，简单来想就是直接重置innerHTML.
+2.在比较性能的时候，要分清楚初始渲染、小量数据更新、大量数据更新这些不通的场合。
+3.不要天真地以为 Virtual DOM 就是快。diff不是免费的。哈哈。Virtual DOM 真正的价值从来都不是性能。而是它 1》为函数式的UI
+编程方式打开了大门； 2》可以渲染到DOM以外的其他场景。如backend/native.
+
+
+--组件化
+在业务开发中。遇到公共的模板部分。我们不得不讲模板喝规定的数据格式耦合在一起来实现组件。而在React中，我们可以使用
+jsx 语法来封装组件，讲组件的结构、数据逻辑甚至样式都聚合在一起，更加简单、明了、直观的定义组件。
+
+有了组件化的实现，我们可以很直观的讲一个复杂的页面分割成若干个独立组件，再将这些独立组件组合成一个复杂的页面。这样
+既减少了逻辑复杂度。又实现了代码的重用。
+
+
+React 认为一个组件应该具有如下的特征：
+    。可组合：一个组件可以和其他的组件一起使用或者可以直接嵌套在另一个组件内部，
+    通过这样的组合方式，一个复杂的UI组件可以分拆成若干个简单的UI组件
+    。可重用：每个组件都是具有独立功能的，它可以被使用在多个UI场景
+    。可维护：每个小的组件仅仅包含自身的逻辑。更容易被理解和维护
+
+--单项数据流
+在React中，数据的流向是从父节点到子节点的单项流动，这样可以使组件简单并且容易把握，以为子节点是无状态的，只需要
+从父节点获取props渲染即可。这样带来的收益是，顶层组件的某个prop改变了，React就会向下递归变量整棵组件树，重新渲染所有实用到了这个属性的组件。
+
+单项数据流带来的几个重要好处：
+    。相比之前的资源重组实现的组件，单项数据流可以很好的完成组件间的数据通信，否则的话，我们需要写一个事件机制来处理这个事情。
+    。大家可能会问，这所倡导的单向流动，那相对MVC或是MVVM框架的双向数据绑定简直是弱爆了。那么这里需要理解的是，
+    这里的单向是循环流动的单向，数据是持续更新的。双向数据绑定是优秀便捷的实现，这个需要用实现的成本和业务场景来考量而着了
+    。对于单向数据流目前已经有很好的类库实现了，如 flux reflux redux等
+【3.推荐关注】
+。React的版本
+React还在持续的更新开发中，版本不段的更新，每一次的更新意味着api的改变亦或是包的拆解，关注版本的更新让你的代码和思想都跟上节奏。
+
+    --学习资料--
+    。github官方仓库
+    。React官网
+    。React中国官网
+
+    --架构及周边生态
+        -架构
+            -和其他类库或是架构结合使用
+            -比如和backbone结合，弥补了backbone的薄弱的view层
+            -和angular结合，让组件的渲染更快
+        -和flux相关类库结合
+            -flux
+            -reflux
+            -redux
+        -生态
+            -使用gulp打包
+            -和es6结合起来封装组件
+            -测试相关
+        -浏览器兼容性等问题是你在使用后不得不考虑的问题。
+
+
+-----------------------实例---------------------------------------------
+
+1.获取React
+    -npm 下载react包
+    npm install react --save-dev
+    -bower下载
+    bower install react --save-dev
+
+2.版本的更新及接口说明
+    版本不同提供的文件不一样
+    0.13版本
+    react.js
+    react-with-addons.js
+    JSXTransforner.js
+    0.14
+    react.js
+    react-dom.js
+    react-dom-server.js
+    react-with-addons.js
+
+    。。react.js  是React的核心库
+
+    --react包提供了一系列的api..列举几个常用的
+    //使用es6的时候可以用这个api定义组件
+    React.Component
+    //创建一个组件类，并作出定义
+    React.createClass
+    //创建并返回一个新的指定类型的ReactElement
+    React.createElement
+    React.cloneElement
+    //返回一个生成指定类型ReactElements的函数
+    React.createFactory
+    //验证一个对象是否为ReactElement,返回boolean值
+    React.isValidElement
+    React.DOM
+
+    .......
+
+    --react-dom.js提供与DOM操作相关的接口，列举几个常用
+    react包提供了一系列与DOM相关的api
+    //渲染一个ReactElement到DOM中，放在container指定的DOM元素下，返回一个到该组件的引用
+    ReactDOM.render
+    //从DOM中移除已经挂载的 React组件，清除相应的事件处理器 和state
+    ReactDOM.unmountComponentAtNode
+    ReactDOM.findDOMNode
+
+    --服务端渲染的几个API被独立出来，两个常用的：
+    ReactDOMServer.renderToString
+    ReactDOMserver.renderToStaticMarkup
+
+    --编译器优化 #
+    react-tools 及 JSXTransFormer.js已弃用
+    以前是采用JSXTransformer来解析JSX语法，现在是全面拥抱Babel(npm install babel -g 安装babel进行JSX语法解析、或是加上babel
+    提供的browser.js库进行解析)
+
+3.代码初体验
+
+--页面中加browser.js  , script标签的type设置为text/babel(0.13版本为text/jsx)
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../vendors/react/react.js"></script>
+    <script src="../vendors/react/react-dom.js"></script>
+    <!--browser.js的作用是讲JSX语法转为 Javascript 语法-->
+    <script src="../vendors/babel/browser.min.js"></script>
+</head>
+<body>
+<!--
+        JSX语法，跟Javascript不兼容。凡是使用JSX的地方，都要加上type="text/babel"
+-->
+<script type="text/babel">
+    var MyComponent = React.createClass({
+        render:function(){
+            return ('<h1 className = "header">这是第一个组件</h1>');
+        }
+
+    });
+
+</script>
+</body>
+</html>
+
+--页面中直接运行babel解析jsx的文件
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../vendors/react/react.js"></script>
+    <script src="../vendors/react/react-dom.js"></script>
+</head>
+<body>
+<div id="example"></div>
+<script src="../build/jsx_compile.js"></script>
+</body>
+</html>
+
+4.JSX语法
+-- 什么是JSX?
+   一种可以在React组件内部构建标签的类XML语法
+   为什么要发明JSX,如果不用JSX，我们可以怎么样定义我们的组件，举例：
+   1>指令封装
+    angular.module('expanderModule',[])
+               .directive('expander', function () {
+                   return{
+                       restrict:"EA",
+                       replace:true,
+                       transclude:true,
+                       scope:{title:'=expanderTitle'},
+                       template:"<div><div class='title'>{{title}}</div></div>",
+                       link:function(scope,element,attrs){
+                           //
+                       }
+                   }
+               });
+    2>如果使用JSX语法，我们可以定义和使用组件
+    var MyList = React.createClass({
+            render: function () {
+                return (
+                        <ul>
+                            {
+                                    this.props.list.map(function(child){
+                                        return <li>{child}</li>
+                                    })
+                            }
+                        </ul>
+                )
+            }
+        });
+        var TagList = [
+            '<a href="#">Facebook</a>',
+            '<a href="#">google</a>'
+        ];
+        ReactDOM.render(
+                <MyList list={TagList}>,
+                document.getElementById('example')
+        );
+
+-------------------------
+        var MyData = ['React','is','avesome'],
+                    myStyles = {
+                        color:"#000",
+                        fontSize:'40px',
+                        fontWeight:'bold'
+                    };
+            ReactDOM.render(
+                    <div style = {myStyles}>
+                    {
+                        MyData.map(function(name){
+                            return <span>{{name}}</span>
+                        })
+                    }
+                    </div>,
+                    document.getElementById("example");
+            );
+
+    JSX的好处
+
+    使用JSX语法来封装组件有什么好处
+    --熟悉的代码
+    -更加语义化
+    -更加抽象且直观
+
+    几个注意点
+
+    -render的方法中return的顶级元素只能是一个
+    -如果要定义样式的时候，不能这样去写
+        //不要出现类似的错误，style="opacity:{this.state.opacity};"
+    -使用 className 和htmlFor来替代对应的class 和for
+    提示：关于组件化的话题，感兴趣的同学可以继续关注Vuejs/Web components等
+    对组件的写法。随着更为复杂的多端环境的出现，组件标准化还有着更大的想象空间，
+    React 的组件定义不是终点，也不一定是标准，但会在组件化的道路上留下深刻的影响
+
+
+
+
+
+

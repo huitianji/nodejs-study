@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../vendors/react/react.js"></script>
+    <script src="../vendors/react/react-dom.js"></script>
+</head>
+<body>
+<div id="example"></div>
+<script src="../build/jsx_compile.js"></script>
+<script>
+    angular.module('expanderModule',[])
+            .directive('expander', function () {
+                return{
+                    restrict:"EA",
+                    replace:true,
+                    transclude:true,
+                    scope:{title:'=expanderTitle'},
+                    template:"<div><div class='title'>{{title}}</div></div>",
+                    link:function(scope,element,attrs){
+                        //
+                    }
+                }
+            });
+
+
+    var MyList = React.createClass({
+        render: function () {
+            return (
+                    <ul>
+                        {
+                                this.props.list.map(function(child){
+                                    return <li>{child}</li>
+                                })
+                        }
+                    </ul>
+            )
+        }
+    });
+    var TagList = [
+        '<a href="#">Facebook</a>',
+        '<a href="#">google</a>'
+    ];
+    ReactDOM.render(
+            <MyList list={TagList}>,
+            document.getElementById('example')
+    );
+
+    var MyData = ['React','is','avesome'],
+            myStyles = {
+                color:"#000",
+                fontSize:'40px',
+                fontWeight:'bold'
+            };
+    ReactDOM.render(
+            <div style = {myStyles}>
+            {
+                MyData.map(function(name){
+                    return <span>{{name}}</span>
+                })
+            }
+            </div>,
+            document.getElementById("example");
+    );
+
+</script>
+</body>
+</html>
